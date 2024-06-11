@@ -1,0 +1,22 @@
+version: "3"
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    #user: uid:gid
+    #network_mode: host
+    volumes:
+      - /mnt/jellyfin/config:/config
+      - /mnt/jellyfin/cache:/cache
+      - /mnt/navi/music/folder:/media
+    ports:
+      - 8096:8096
+      - 8920:8920
+    networks:
+      - network1
+    restart: unless-stopped
+
+networks:
+   network1:
+     name: proxymanager_default
+     external: true
