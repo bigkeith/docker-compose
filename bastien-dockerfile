@@ -1,0 +1,22 @@
+# Use Alpine Linux as base image
+FROM alpine:latest
+
+# Install OpenSSH server
+RUN apk update && \
+    apk add openssh && \
+    rm -rf /var/cache/apk/*
+
+# Generate SSH keys
+RUN ssh-keygen -A
+
+# Create a non-root user to run the SSH server
+RUN adduser -D sshuser
+
+# Set password for the user (Change 'password' to your desired password)
+RUN echo "sshuser:password" | chpasswd
+
+# Expose SSH port
+EXPOSE 22
+
+# Start SSH server
+CMD ["/usr/sbin/sshd", "-D", "-e"]
