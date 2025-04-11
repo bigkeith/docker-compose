@@ -15,7 +15,7 @@ services:
     networks:
       - network1
     restart: unless-stopped
-
+#define my network
 networks:
    network1:
      name: proxymanager_default
